@@ -2,6 +2,15 @@ export class ListMultimap<K, V> {
   public size = 0;
   private map: Map<K, V[]> = new Map();
 
+  constructor(iterable?: Iterable<[K, V]>) {
+    if (iterable) {
+      for (const [key, value] of iterable) {
+        this.put(key, value);
+      }
+    }
+    return this;
+  }
+
   get(key: K): V[] {
     const values = this.map.get(key);
     if (values) {
@@ -62,5 +71,29 @@ export class ListMultimap<K, V> {
       }
     }
     return gen();
+  }
+
+  values(): IterableIterator<V> {
+    const self = this;
+    function* gen(): IterableIterator<V> {
+      for (const [, value] of self.entries()) {
+        yield value;
+      }
+    }
+    return gen();
+  }
+
+  forEach<T>(callback: (this: T, alue: V, key: K, map: this) => void, thisArg?: T): void {
+    for (const [key, value] of this.entries()) {
+      callback.call(thisArg, value, key, this);
+    }
+  }
+
+  [Symbol.iterator]() {
+    return this.entries();
+  }
+
+  get [Symbol.toStringTag]() {
+    return 'ListMultimap';
   }
 }

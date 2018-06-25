@@ -2,8 +2,30 @@ import assert = require('assert');
 import {ListMultimap} from '../src';
 
 describe('ListMultimap', () => {
-  it('should be a function', () => {
+  it('is a function', () => {
     assert(typeof ListMultimap === 'function');
+  });
+  it('is called with no args', () => {
+    const map = new ListMultimap<string, string>();
+    assert(map.size === 0);
+  });
+  it('is called with Iterable<[K, V]>', () => {
+    const iterable = {
+      [Symbol.iterator]() {
+        const m = new Set<[string, string]>([['foo', 'b'], ['bar', 'c'], ['foo', 'a']]);
+        const iter = m.values();
+        delete iter[Symbol.iterator];
+        return iter;
+      },
+    };
+    const map = new ListMultimap<string, string>(iterable);
+    assert(map.size === 3);
+    assert.deepEqual(map.get('foo'), ['b', 'a']);
+    assert.deepEqual(map.get('bar'), ['c']);
+  });
+  it('@@toStringTag', () => {
+    const map = new ListMultimap<string, string>();
+    assert(map.toString() === '[object ListMultimap]');
   });
   it('size: 0', () => {
     const map = new ListMultimap<string, string>();
@@ -105,5 +127,56 @@ describe('ListMultimap', () => {
     map.put('foo', 'a');
     const actual = Array.from(map.entries());
     assert.deepEqual(actual, [['foo', 'b'], ['foo', 'a'], ['bar', 'c']]);
+  });
+  it('ListMultimap is an Iterable', () => {
+    const map = new ListMultimap<string, string>();
+    map.put('foo', 'b');
+    map.put('bar', 'c');
+    map.put('foo', 'a');
+    const actual = Array.from(map);
+    assert.deepEqual(actual, [['foo', 'b'], ['foo', 'a'], ['bar', 'c']]);
+  });
+  it('values() is an Iterator', () => {
+    const map = new ListMultimap<string, string>();
+    map.put('foo', 'b');
+    map.put('bar', 'c');
+    map.put('foo', 'a');
+    const iter = map.values();
+    assert.deepEqual(iter.next(), {value: 'b', done: false});
+    assert.deepEqual(iter.next(), {value: 'a', done: false});
+    assert.deepEqual(iter.next(), {value: 'c', done: false});
+    assert.deepEqual(iter.next(), {value: undefined, done: true});
+    assert.deepEqual(iter.next(), {value: undefined, done: true});
+  });
+  it('values() is an Iterable', () => {
+    const map = new ListMultimap<string, string>();
+    map.put('foo', 'b');
+    map.put('bar', 'c');
+    map.put('foo', 'a');
+    const actual = Array.from(map.values());
+    assert.deepEqual(actual, ['b', 'a', 'c']);
+  });
+  it('forEach()', () => {
+    const map = new ListMultimap<string, string>();
+    map.put('foo', 'b');
+    map.put('bar', 'c');
+    map.put('foo', 'a');
+    const result: any[] = [];
+    const ret = map.forEach((value, key, m) => {
+      result.push([value, key, m]);
+    });
+    assert(ret === undefined);
+    assert.deepEqual(result, [['b', 'foo', map], ['a', 'foo', map], ['c', 'bar', map]]);
+  });
+  it('forEach(), thisArg', () => {
+    const map = new ListMultimap<string, string>();
+    map.put('foo', 'b');
+    const obj = {};
+    let actual: any;
+    map.forEach(function(value, key, m) {
+      // tslint:disable-next-line:no-invalid-this
+      actual = this;
+    }, obj);
+    assert(actual === obj);
   });
 });
