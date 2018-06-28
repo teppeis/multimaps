@@ -30,9 +30,34 @@ export class ListMultimap<K, V> {
     this.size++;
     return true;
   }
+  putAll(key: K, values: V[]): boolean;
+  putAll(multimap: ListMultimap<K, V>): boolean;
+  putAll(arg1: K | ListMultimap<K, V>, arg2?: V[]): boolean {
+    let pushed = 0;
+    if (arg2) {
+      const key = arg1 as K;
+      const values = arg2;
+      for (const value of values) {
+        this.put(key, value);
+        pushed++;
+      }
+    } else if (arg1 instanceof ListMultimap) {
+      for (const [key, value] of arg1.entries()) {
+        this.put(key, value);
+        pushed++;
+      }
+    } else {
+      throw new Error('unexpected arguments');
+    }
+    return pushed > 0;
+  }
 
   has(key: K): boolean {
     return this.map.has(key);
+  }
+
+  hasEntry(key: K, value: V): boolean {
+    return this.get(key).indexOf(value) > -1;
   }
 
   delete(key: K): boolean {
@@ -40,7 +65,7 @@ export class ListMultimap<K, V> {
     return this.map.delete(key);
   }
 
-  deleteKeyValue(key: K, value: V): boolean {
+  deleteEntry(key: K, value: V): boolean {
     const current = this.get(key);
     const index = current.indexOf(value);
     if (index === -1) {
@@ -93,7 +118,15 @@ export class ListMultimap<K, V> {
     return this.entries();
   }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return 'ListMultimap';
+  }
+
+  asMap(): Map<K, V[]> {
+    const ret = new Map<K, V[]>();
+    for (const key of this.keys()) {
+      ret.set(key, this.get(key).slice());
+    }
+    return ret;
   }
 }

@@ -2,26 +2,28 @@ import assert = require('assert');
 import {ListMultimap} from '../src';
 
 describe('ListMultimap', () => {
-  it('is a function', () => {
-    assert(typeof ListMultimap === 'function');
-  });
-  it('is called with no args', () => {
-    const map = new ListMultimap<string, string>();
-    assert(map.size === 0);
-  });
-  it('is called with Iterable<[K, V]>', () => {
-    const iterable = {
-      [Symbol.iterator]() {
-        const m = new Set<[string, string]>([['foo', 'b'], ['bar', 'c'], ['foo', 'a']]);
-        const iter = m.values();
-        delete iter[Symbol.iterator];
-        return iter;
-      },
-    };
-    const map = new ListMultimap<string, string>(iterable);
-    assert(map.size === 3);
-    assert.deepEqual(map.get('foo'), ['b', 'a']);
-    assert.deepEqual(map.get('bar'), ['c']);
+  describe('constructor ', () => {
+    it('is a function', () => {
+      assert(typeof ListMultimap === 'function');
+    });
+    it('is called with no args', () => {
+      const map = new ListMultimap<string, string>();
+      assert(map.size === 0);
+    });
+    it('is called with Iterable<[K, V]>', () => {
+      const iterable = {
+        [Symbol.iterator]() {
+          const m = new Set<[string, string]>([['foo', 'b'], ['bar', 'c'], ['foo', 'a']]);
+          const iter = m.values();
+          delete iter[Symbol.iterator];
+          return iter;
+        },
+      };
+      const map = new ListMultimap<string, string>(iterable);
+      assert(map.size === 3);
+      assert.deepEqual(map.get('foo'), ['b', 'a']);
+      assert.deepEqual(map.get('bar'), ['c']);
+    });
   });
   it('@@toStringTag', () => {
     const map = new ListMultimap<string, string>();
@@ -48,12 +50,44 @@ describe('ListMultimap', () => {
     assert(map.put('bar', 'c') === true);
     assert.deepEqual(map.get('bar'), ['c']);
     assert(map.size === 3);
+
+    map.get('foo').push('d');
+    assert.deepEqual(map.get('foo'), ['a', 'b']);
+  });
+  it('putAll(key, values)', () => {
+    const map = new ListMultimap<string, string>();
+    map.put('foo', 'a');
+    assert(map.putAll('foo', ['b', 'c']) === true);
+    assert.deepEqual(map.get('foo'), ['a', 'b', 'c']);
+  });
+  it('putAll() empty', () => {
+    const map = new ListMultimap<string, string>();
+    assert(map.putAll('foo', []) === false);
+    assert(map.size === 0);
+  });
+  it('putAll(multimap)', () => {
+    const map = new ListMultimap<string, string>();
+    map.putAll('foo', ['a', 'b']);
+    map.putAll('bar', ['c']);
+    const actual = new ListMultimap<string, string>();
+    actual.putAll(map);
+    assert.deepEqual(actual.get('foo'), ['a', 'b']);
+    assert.deepEqual(actual.get('bar'), ['c']);
+    assert(actual.size === 3);
   });
   it('has()', () => {
     const map = new ListMultimap<string, string>();
     assert(map.has('foo') === false);
     map.put('foo', 'a');
     assert(map.has('foo') === true);
+    assert(map.has('bar') === false);
+  });
+  it('hasEntry()', () => {
+    const map = new ListMultimap<string, string>();
+    assert(map.hasEntry('foo', 'a') === false);
+    map.put('foo', 'a');
+    assert(map.hasEntry('foo', 'a') === true);
+    assert(map.hasEntry('foo', 'b') === false);
   });
   it('clear()', () => {
     const map = new ListMultimap<string, string>();
@@ -76,24 +110,24 @@ describe('ListMultimap', () => {
     assert(map.delete('foo') === false);
     assert(map.size === 1);
   });
-  it('deleteKeyValue()', () => {
+  it('deleteEntry()', () => {
     const map = new ListMultimap<string, string>();
     map.put('foo', 'a');
     map.put('foo', 'b');
     map.put('bar', 'b');
-    assert(map.deleteKeyValue('foo', 'b') === true);
+    assert(map.deleteEntry('foo', 'b') === true);
     assert(map.size === 2);
     assert.deepEqual(map.get('foo'), ['a']);
     assert.deepEqual(map.get('bar'), ['b']);
 
-    assert(map.deleteKeyValue('foo', 'b') === false);
+    assert(map.deleteEntry('foo', 'b') === false);
     assert(map.size === 2);
   });
-  it('deleteKeyValue() deletes only one value', () => {
+  it('deleteEntry() deletes only one value', () => {
     const map = new ListMultimap<string, string>();
     map.put('foo', 'a');
     map.put('foo', 'a');
-    assert(map.deleteKeyValue('foo', 'a') === true);
+    assert(map.deleteEntry('foo', 'a') === true);
     assert(map.size === 1);
     assert.deepEqual(map.get('foo'), ['a']);
   });
@@ -178,5 +212,18 @@ describe('ListMultimap', () => {
       actual = this;
     }, obj);
     assert(actual === obj);
+  });
+  it('asMap()', () => {
+    const map = new ListMultimap<string, string>();
+    map.put('foo', 'b');
+    map.put('bar', 'c');
+    map.put('foo', 'a');
+    const actual = map.asMap();
+    assert(actual instanceof Map);
+    assert.deepEqual(actual, new Map([['foo', ['b', 'a']], ['bar', ['c']]]));
+    const foo = actual.get('foo');
+    if (!foo) throw new Error();
+    foo.push('d');
+    assert.deepEqual(map.get('foo'), ['b', 'a']);
   });
 });
