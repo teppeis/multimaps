@@ -1,5 +1,5 @@
 import assert = require('assert');
-import {SetMultimap} from '../src/setmultimap';
+import {SetMultimap} from '../src/';
 
 describe('SetMultimap', () => {
   describe('constructor ', () => {
@@ -53,6 +53,16 @@ describe('SetMultimap', () => {
 
     map.get('foo').add('d');
     assert.deepEqual(map.get('foo'), new Set(['a', 'b']));
+  });
+  it('put(), no duplicated value', () => {
+    const map = new SetMultimap<string, string>();
+    assert(map.put('foo', 'a') === true);
+    assert.deepEqual(map.get('foo'), new Set(['a']));
+    assert(map.size === 1);
+
+    assert(map.put('foo', 'a') === false);
+    assert.deepEqual(map.get('foo'), new Set(['a']));
+    assert(map.size === 1);
   });
   it('putAll(key, values)', () => {
     const map = new SetMultimap<string, string>();
