@@ -2,7 +2,7 @@ import assert = require('assert');
 import {ArrayMultimap} from '../src/';
 
 describe('ListMultimap', () => {
-  describe('constructor ', () => {
+  describe('constructor', () => {
     it('is a function', () => {
       assert(typeof ArrayMultimap === 'function');
     });

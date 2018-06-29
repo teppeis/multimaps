@@ -2,7 +2,7 @@ import assert = require('assert');
 import {SetMultimap} from '../src/';
 
 describe('SetMultimap', () => {
-  describe('constructor ', () => {
+  describe('constructor', () => {
     it('is a function', () => {
       assert(typeof SetMultimap === 'function');
     });
