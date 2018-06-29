@@ -1,5 +1,5 @@
 export abstract class Multimap<K, V, I extends Iterable<V>> {
-  public size = 0;
+  private size_ = 0;
   private map: Map<K, I> = new Map();
 
   constructor(iterable?: Iterable<[K, V]>) {
@@ -9,6 +9,10 @@ export abstract class Multimap<K, V, I extends Iterable<V>> {
       }
     }
     return this;
+  }
+
+  get size(): number {
+    return this.size_;
   }
 
   get(key: K): I {
@@ -36,7 +40,7 @@ export abstract class Multimap<K, V, I extends Iterable<V>> {
       return false;
     }
     this.map.set(key, values);
-    this.size++;
+    this.size_++;
     return true;
   }
   putAll(key: K, values: I): boolean;
@@ -70,7 +74,7 @@ export abstract class Multimap<K, V, I extends Iterable<V>> {
   }
 
   delete(key: K): boolean {
-    this.size -= this.countValues(this.get(key));
+    this.size_ -= this.countValues(this.get(key));
     return this.map.delete(key);
   }
 
@@ -80,13 +84,13 @@ export abstract class Multimap<K, V, I extends Iterable<V>> {
       return false;
     }
     this.map.set(key, current);
-    this.size--;
+    this.size_--;
     return true;
   }
 
   clear(): void {
     this.map.clear();
-    this.size = 0;
+    this.size_ = 0;
   }
 
   keys(): IterableIterator<K> {
