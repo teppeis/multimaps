@@ -1,6 +1,6 @@
 export abstract class Multimap<K, V, I extends Iterable<V>> {
   public size = 0;
-  protected map: Map<K, I> = new Map();
+  private map: Map<K, I> = new Map();
 
   constructor(iterable?: Iterable<[K, V]>) {
     if (iterable) {
