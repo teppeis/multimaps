@@ -1,31 +1,42 @@
-import {Multimap} from './multimap';
+import {Multimap, CollectionOperator} from './multimap';
 
 export class ArrayMultimap<K, V> extends Multimap<K, V, V[]> {
-  protected newValues(): V[] {
+  constructor(iterable?: Iterable<[K, V]>) {
+    super(new ArrayOperator(), iterable);
+  }
+
+  get [Symbol.toStringTag](): string {
+    return 'ArrayMultimap';
+  }
+}
+
+class ArrayOperator<V> implements CollectionOperator<V, V[]> {
+  create(): V[] {
     return [];
   }
-  protected cloneValues(values: V[]): V[] {
-    return values.slice();
+
+  clone(collection: V[]): V[] {
+    return collection.slice();
   }
-  protected addValue(value: V, values: V[]): boolean {
-    values.push(value);
+
+  add(value: V, collection: V[]): boolean {
+    collection.push(value);
     return true;
   }
-  protected countValues(values: V[]): number {
-    return values.length;
+
+  size(collection: V[]): number {
+    return collection.length;
   }
-  protected deleteValue(value: V, values: V[]): boolean {
-    const index = values.indexOf(value);
+
+  delete(value: V, collection: V[]): boolean {
+    const index = collection.indexOf(value);
     if (index > -1) {
-      values.splice(index, 1);
+      collection.splice(index, 1);
       return true;
     }
     return false;
   }
-  protected hasValue(value: V, values: V[]): boolean {
-    return values.indexOf(value) > -1;
-  }
-  get [Symbol.toStringTag](): string {
-    return 'ArrayMultimap';
+  has(value: V, collection: V[]): boolean {
+    return collection.indexOf(value) > -1;
   }
 }

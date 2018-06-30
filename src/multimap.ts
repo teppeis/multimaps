@@ -1,8 +1,10 @@
 export abstract class Multimap<K, V, I extends Iterable<V>> {
   private size_ = 0;
   private map: Map<K, I> = new Map();
+  private operator: CollectionOperator<V, I>;
 
-  constructor(iterable?: Iterable<[K, V]>) {
+  constructor(operator: CollectionOperator<V, I>, iterable?: Iterable<[K, V]>) {
+    this.operator = operator;
     if (iterable) {
       for (const [key, value] of iterable) {
         this.put(key, value);
@@ -11,6 +13,8 @@ export abstract class Multimap<K, V, I extends Iterable<V>> {
     return this;
   }
 
+  abstract get [Symbol.toStringTag](): string;
+
   get size(): number {
     return this.size_;
   }
@@ -18,31 +22,25 @@ export abstract class Multimap<K, V, I extends Iterable<V>> {
   get(key: K): I {
     const values = this.map.get(key);
     if (values) {
-      return this.cloneValues(values);
+      return this.operator.clone(values);
     } else {
-      return this.newValues();
+      return this.operator.create();
     }
   }
-
-  protected abstract newValues(): I;
-  protected abstract cloneValues(values: I): I;
-  protected abstract addValue(value: V, values: I): boolean;
-  protected abstract countValues(values: I): number;
-  protected abstract deleteValue(value: V, values: I): boolean;
-  protected abstract hasValue(value: V, values: I): boolean;
 
   put(key: K, value: V): boolean {
     let values = this.map.get(key);
     if (!values) {
-      values = this.newValues();
+      values = this.operator.create();
     }
-    if (!this.addValue(value, values)) {
+    if (!this.operator.add(value, values)) {
       return false;
     }
     this.map.set(key, values);
     this.size_++;
     return true;
   }
+
   putAll(key: K, values: I): boolean;
   putAll(multimap: Multimap<K, V, I>): boolean;
   putAll(arg1: K | Multimap<K, V, I>, arg2?: I): boolean {
@@ -70,17 +68,17 @@ export abstract class Multimap<K, V, I extends Iterable<V>> {
   }
 
   hasEntry(key: K, value: V): boolean {
-    return this.hasValue(value, this.get(key));
+    return this.operator.has(value, this.get(key));
   }
 
   delete(key: K): boolean {
-    this.size_ -= this.countValues(this.get(key));
+    this.size_ -= this.operator.size(this.get(key));
     return this.map.delete(key);
   }
 
   deleteEntry(key: K, value: V): boolean {
     const current = this.get(key);
-    if (!this.deleteValue(value, current)) {
+    if (!this.operator.delete(value, current)) {
       return false;
     }
     this.map.set(key, current);
@@ -129,13 +127,20 @@ export abstract class Multimap<K, V, I extends Iterable<V>> {
     return this.entries();
   }
 
-  abstract get [Symbol.toStringTag](): string;
-
   asMap(): Map<K, I> {
     const ret = new Map<K, I>();
     for (const key of this.keys()) {
-      ret.set(key, this.cloneValues(this.get(key)));
+      ret.set(key, this.operator.clone(this.get(key)));
     }
     return ret;
   }
+}
+
+export interface CollectionOperator<V, I> {
+  create(): I;
+  clone(collection: I): I;
+  add(value: V, collection: I): boolean;
+  size(collection: I): number;
+  delete(value: V, collection: I): boolean;
+  has(value: V, collection: I): boolean;
 }

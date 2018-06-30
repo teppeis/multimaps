@@ -1,7 +1,7 @@
 import assert = require('assert');
 import {ArrayMultimap} from '../src/';
 
-describe('ListMultimap', () => {
+describe('ArrayMultimap', () => {
   describe('constructor', () => {
     it('is a function', () => {
       assert(typeof ArrayMultimap === 'function');
@@ -25,7 +25,7 @@ describe('ListMultimap', () => {
       assert.deepEqual(map.get('bar'), ['c']);
     });
   });
-  it('@@toStringTag', () => {
+  it('@@toStringTag()', () => {
     const map = new ArrayMultimap<string, string>();
     assert(map.toString() === '[object ArrayMultimap]');
   });
