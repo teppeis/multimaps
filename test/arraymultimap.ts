@@ -162,7 +162,7 @@ describe('ArrayMultimap', () => {
     const actual = Array.from(map.entries());
     assert.deepEqual(actual, [['foo', 'b'], ['foo', 'a'], ['bar', 'c']]);
   });
-  it('ListMultimap is an Iterable', () => {
+  it('is an Iterable', () => {
     const map = new ArrayMultimap<string, string>();
     map.put('foo', 'b');
     map.put('bar', 'c');

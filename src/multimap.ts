@@ -1,4 +1,4 @@
-export abstract class Multimap<K, V, I extends Iterable<V>> {
+export abstract class Multimap<K, V, I extends Iterable<V>> implements Iterable<[K, V]> {
   private size_ = 0;
   private map: Map<K, I> = new Map();
   private operator: CollectionOperator<V, I>;
