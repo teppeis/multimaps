@@ -6,6 +6,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "engines": {
+    "node": ">=6"
+  },
   "main": "dist/index.js",
   "files": [
     "dist"
