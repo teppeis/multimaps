@@ -1,7 +1,7 @@
 {
   "name": "@teppeis/multimaps",
   "description": "Multimap classes for TypeScript and JavaScript",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Teppei Sato <teppeis@gmail.com>",
   "publishConfig": {
     "access": "public"
@@ -9,15 +9,17 @@
   "engines": {
     "node": ">=6"
   },
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "files": [
-    "dist"
+    "dist/src"
   ],
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",
     "lint": "tslint -c tslint.js 'src/**/*.ts' 'test/**/*.ts'",
     "mocha": "mocha -r espower-typescript/guess --watch-extensions ts,tsx 'test/**/*.{ts,tsx}'",
+    "prepublishOnly": "run-s clean build",
     "test": "run-s clean lint build mocha"
   },
   "devDependencies": {
@@ -32,7 +34,7 @@
     "rimraf": "^2.6.2",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
-    "tslint-import-eslint-config": "^1.0.1",
+    "tslint-import-eslint-config": "^1.0.3",
     "tslint-plugin-prettier": "^2.0.0",
     "typescript": "^3.1.1"
   },
