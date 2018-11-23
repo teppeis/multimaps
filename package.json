@@ -10,14 +10,16 @@
     "node": ">=6"
   },
   "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "files": [
-    "dist"
+    "dist/src"
   ],
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",
     "lint": "tslint -c tslint.js 'src/**/*.ts' 'test/**/*.ts'",
     "mocha": "mocha -r espower-typescript/guess --watch-extensions ts,tsx 'test/**/*.{ts,tsx}'",
+    "prepublishOnly": "run-s clean build",
     "test": "run-s clean lint build mocha"
   },
   "devDependencies": {
