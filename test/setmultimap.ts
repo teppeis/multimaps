@@ -198,7 +198,9 @@ describe('SetMultimap', () => {
     map.put('bar', 'c');
     map.put('foo', 'a');
     const result: any[] = [];
-    const ret = map.forEach((value, key, m) => {
+    const ret = map.forEach(function(value, key, m) {
+      // tslint:disable-next-line:no-invalid-this
+      assert(this === map);
       result.push([value, key, m]);
     });
     assert(ret === undefined);
