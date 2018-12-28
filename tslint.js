@@ -3,12 +3,18 @@
 const importESLintConfig = require('tslint-import-eslint-config');
 const prettierrc = require('eslint-config-teppeis/.prettierrc');
  
-module.exports = importESLintConfig({
+const config = importESLintConfig({
   extends: ['teppeis/node-v6', 'teppeis/+prettier', 'teppeis/+mocha'],
   rules: {}
 });
 
-module.exports.extends.push('tslint-plugin-prettier');
-Object.assign(module.exports.rules, {
+config.extends.push('tslint-plugin-prettier');
+Object.assign(config.rules, {
   prettier: [true, prettierrc],
 });
+
+config.linterOptions = {
+  format: 'codeFrame',
+};
+
+module.exports = config;
