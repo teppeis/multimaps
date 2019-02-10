@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "teppeis/es2019",
+    "teppeis/+node",
+    "teppeis/+typescript",
+    "teppeis/+prettier",
+    "teppeis/+mocha"
+  ]
+}
