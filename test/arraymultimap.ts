@@ -13,7 +13,11 @@ describe('ArrayMultimap', () => {
     it('is called with Iterable<[K, V]>', () => {
       const iterable = {
         [Symbol.iterator]() {
-          const m = new Set<[string, string]>([['foo', 'b'], ['bar', 'c'], ['foo', 'a']]);
+          const m = new Set<[string, string]>([
+            ['foo', 'b'],
+            ['bar', 'c'],
+            ['foo', 'a'],
+          ]);
           const iter = m.values();
           delete iter[Symbol.iterator];
           return iter;
@@ -160,7 +164,11 @@ describe('ArrayMultimap', () => {
     map.put('bar', 'c');
     map.put('foo', 'a');
     const actual = Array.from(map.entries());
-    assert.deepEqual(actual, [['foo', 'b'], ['foo', 'a'], ['bar', 'c']]);
+    assert.deepEqual(actual, [
+      ['foo', 'b'],
+      ['foo', 'a'],
+      ['bar', 'c'],
+    ]);
   });
   it('is an Iterable', () => {
     const map = new ArrayMultimap<string, string>();
@@ -168,7 +176,11 @@ describe('ArrayMultimap', () => {
     map.put('bar', 'c');
     map.put('foo', 'a');
     const actual = Array.from(map);
-    assert.deepEqual(actual, [['foo', 'b'], ['foo', 'a'], ['bar', 'c']]);
+    assert.deepEqual(actual, [
+      ['foo', 'b'],
+      ['foo', 'a'],
+      ['bar', 'c'],
+    ]);
   });
   it('values() is an Iterator', () => {
     const map = new ArrayMultimap<string, string>();
@@ -202,7 +214,11 @@ describe('ArrayMultimap', () => {
       result.push([value, key, m]);
     });
     assert(ret === undefined);
-    assert.deepEqual(result, [['b', 'foo', map], ['a', 'foo', map], ['c', 'bar', map]]);
+    assert.deepEqual(result, [
+      ['b', 'foo', map],
+      ['a', 'foo', map],
+      ['c', 'bar', map],
+    ]);
   });
   it('forEach(), thisArg', () => {
     const map = new ArrayMultimap<string, string>();
@@ -222,7 +238,13 @@ describe('ArrayMultimap', () => {
     map.put('foo', 'a');
     const actual = map.asMap();
     assert(actual instanceof Map);
-    assert.deepEqual(actual, new Map([['foo', ['b', 'a']], ['bar', ['c']]]));
+    assert.deepEqual(
+      actual,
+      new Map([
+        ['foo', ['b', 'a']],
+        ['bar', ['c']],
+      ])
+    );
     const foo = actual.get('foo');
     if (!foo) throw new Error();
     foo.push('d');
