@@ -37,6 +37,6 @@ class ArrayOperator<V> implements CollectionOperator<V, V[]> {
     return false;
   }
   has(value: V, collection: V[]): boolean {
-    return collection.indexOf(value) > -1;
+    return collection.includes(value);
   }
 }
