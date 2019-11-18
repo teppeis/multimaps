@@ -53,7 +53,7 @@ MIT License: Teppei Sato &lt;teppeis@gmail.com&gt;
 [npm-downloads-image]: https://img.shields.io/npm/dm/@teppeis/multimaps.svg
 [deps-image]: https://img.shields.io/david/teppeis/multimaps.svg
 [deps-url]: https://david-dm.org/teppeis/multimaps
-[node-version]: https://img.shields.io/badge/Node.js%20support-v6,v8,v10-brightgreen.svg
+[node-version]: https://img.shields.io/badge/Node.js%20support-v8++-brightgreen.svg
 [license]: https://img.shields.io/npm/l/@teppeis/multimaps.svg
 [circleci-image]: https://circleci.com/gh/teppeis/multimaps.svg?style=shield
 [circleci-url]: https://circleci.com/gh/teppeis/multimaps
