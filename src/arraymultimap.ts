@@ -1,4 +1,4 @@
-import {Multimap, CollectionOperator} from './multimap';
+import { Multimap, CollectionOperator } from "./multimap";
 
 export class ArrayMultimap<K, V> extends Multimap<K, V, V[]> {
   constructor(iterable?: Iterable<[K, V]>) {
@@ -6,7 +6,7 @@ export class ArrayMultimap<K, V> extends Multimap<K, V, V[]> {
   }
 
   get [Symbol.toStringTag](): string {
-    return 'ArrayMultimap';
+    return "ArrayMultimap";
   }
 }
 

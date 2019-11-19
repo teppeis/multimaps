@@ -1,11 +1,11 @@
-import {Multimap, CollectionOperator} from './multimap';
+import { Multimap, CollectionOperator } from "./multimap";
 
 export class SetMultimap<K, V> extends Multimap<K, V, Set<V>> {
   constructor(iterable?: Iterable<[K, V]>) {
     super(new SetOperator(), iterable);
   }
   get [Symbol.toStringTag](): string {
-    return 'SetMultimap';
+    return "SetMultimap";
   }
 }
 

@@ -58,7 +58,7 @@ export abstract class Multimap<K, V, I extends Iterable<V>> implements Iterable<
         pushed++;
       }
     } else {
-      throw new TypeError('unexpected arguments');
+      throw new TypeError("unexpected arguments");
     }
     return pushed > 0;
   }
