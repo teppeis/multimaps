@@ -45,15 +45,15 @@ describe("SetMultimap", () => {
     const map = new SetMultimap<string, string>();
     assert(map.put("foo", "a") === true);
     assert.deepEqual(map.get("foo"), new Set(["a"]));
-    assert(map.size === 1);
+    assert.equal(map.size, 1);
 
     assert(map.put("foo", "b") === true);
     assert.deepEqual(map.get("foo"), new Set(["a", "b"]));
-    assert(map.size === 2);
+    assert.equal(map.size, 2);
 
     assert(map.put("bar", "c") === true);
     assert.deepEqual(map.get("bar"), new Set(["c"]));
-    assert(map.size === 3);
+    assert.equal(map.size, 3);
 
     map.get("foo").add("d");
     assert.deepEqual(map.get("foo"), new Set(["a", "b"]));
