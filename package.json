@@ -18,7 +18,7 @@
     "build": "tsc",
     "clean": "rimraf dist",
     "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
-    "mocha": "mocha -r espower-typescript/guess --extension ts,tsx 'test/**/*.{ts,tsx}'",
+    "mocha": "mocha -r espower-typescript/guess --extension ts,tsx 'test/*.{ts,tsx}'",
     "prepublishOnly": "run-s clean build",
     "test": "run-s clean lint build mocha"
   },
@@ -33,7 +33,7 @@
     "power-assert": "^1.6.1",
     "rimraf": "^3.0.2",
     "ts-node": "^9.1.1",
-    "typescript": "^3.7.5"
+    "typescript": "^4.1.3"
   },
   "homepage": "https://github.com/teppeis/multimaps#readme",
   "repository": {
