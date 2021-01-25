@@ -1,4 +1,5 @@
 import { ArrayMultimap } from "../src";
+import { makeIterator } from "./lib/makeiterator";
 
 // eslint-disable-next-line import/order
 import assert = require("assert");
@@ -14,15 +15,12 @@ describe("ArrayMultimap", () => {
     });
     it("is called with Iterable<[K, V]>", () => {
       const iterable = {
-        [Symbol.iterator]() {
-          const m = new Set<[string, string]>([
+        [Symbol.iterator](): Iterator<[string, string]> {
+          return makeIterator([
             ["foo", "b"],
             ["bar", "c"],
             ["foo", "a"],
           ]);
-          const iter = m.values();
-          delete iter[Symbol.iterator];
-          return iter;
         },
       };
       const map = new ArrayMultimap<string, string>(iterable);

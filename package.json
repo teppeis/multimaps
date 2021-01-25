@@ -18,7 +18,7 @@
     "build": "tsc",
     "clean": "rimraf dist",
     "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
-    "mocha": "mocha -r espower-typescript/guess --extension ts,tsx 'test/**/*.{ts,tsx}'",
+    "mocha": "mocha -r espower-typescript/guess --extension ts,tsx 'test/*.{ts,tsx}'",
     "prepublishOnly": "run-s clean build",
     "test": "run-s clean lint build mocha"
   },
