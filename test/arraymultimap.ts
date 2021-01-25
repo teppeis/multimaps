@@ -1,5 +1,7 @@
+import { ArrayMultimap } from "../src";
+
+// eslint-disable-next-line import/order
 import assert = require("assert");
-import { ArrayMultimap } from "../src/";
 
 describe("ArrayMultimap", () => {
   describe("constructor", () => {
@@ -208,7 +210,7 @@ describe("ArrayMultimap", () => {
     map.put("bar", "c");
     map.put("foo", "a");
     const result: any[] = [];
-    const ret = map.forEach(function(value, key, m) {
+    const ret = map.forEach(function (value, key, m) {
       // tslint:disable-next-line:no-invalid-this
       assert(this === map);
       result.push([value, key, m]);
@@ -225,7 +227,7 @@ describe("ArrayMultimap", () => {
     map.put("foo", "b");
     const obj = {};
     let actual: any;
-    map.forEach(function(value, key, m) {
+    map.forEach(function (value, key, m) {
       // tslint:disable-next-line:no-invalid-this
       actual = this;
     }, obj);

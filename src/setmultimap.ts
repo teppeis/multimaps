@@ -1,4 +1,5 @@
-import { Multimap, CollectionOperator } from "./multimap";
+import type { CollectionOperator } from "./multimap";
+import { Multimap } from "./multimap";
 
 export class SetMultimap<K, V> extends Multimap<K, V, Set<V>> {
   constructor(iterable?: Iterable<[K, V]>) {

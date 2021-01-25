@@ -1,4 +1,5 @@
-import { Multimap, CollectionOperator } from "./multimap";
+import type { CollectionOperator } from "./multimap";
+import { Multimap } from "./multimap";
 
 export class ArrayMultimap<K, V> extends Multimap<K, V, V[]> {
   constructor(iterable?: Iterable<[K, V]>) {
