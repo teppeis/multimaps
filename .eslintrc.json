@@ -1,4 +1,5 @@
 {
+  "root": true,
   "extends": [
     "teppeis/es2019",
     "teppeis/+node",
