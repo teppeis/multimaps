@@ -4,7 +4,7 @@ Multi-Map classes for TypeScript and JavaScript
 
 [![npm version][npm-image]][npm-url]
 ![Node.js Version Support][node-version]
-[![build status][circleci-image]][circleci-url]
+[![build status][ci-image]][ci-url]
 [![dependency status][deps-image]][deps-url]
 ![License][license]
 
@@ -55,5 +55,5 @@ MIT License: Teppei Sato &lt;teppeis@gmail.com&gt;
 [deps-url]: https://david-dm.org/teppeis/multimaps
 [node-version]: https://img.shields.io/badge/Node.js%20support-v8++-brightgreen.svg
 [license]: https://img.shields.io/npm/l/@teppeis/multimaps.svg
-[circleci-image]: https://circleci.com/gh/teppeis/multimaps.svg?style=shield
-[circleci-url]: https://circleci.com/gh/teppeis/multimaps
+[ci-image]: https://github.com/teppeis/multimaps/workflows/CI/badge.svg
+[ci-url]: https://github.com/teppeis/multimaps/actions?query=workflow%3ACI
