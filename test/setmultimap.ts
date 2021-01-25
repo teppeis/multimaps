@@ -1,5 +1,7 @@
+import { SetMultimap } from "../src";
+
+// eslint-disable-next-line import/order
 import assert = require("assert");
-import { SetMultimap } from "../src/";
 
 describe("SetMultimap", () => {
   describe("constructor", () => {
