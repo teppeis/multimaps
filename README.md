@@ -6,7 +6,8 @@ Multi-Map classes for TypeScript and JavaScript
 ![Node.js Version Support][node-version]
 ![TypeScript Version Support][ts-version]
 [![build status][ci-image]][ci-url]
-[![dependency status][deps-image]][deps-url]
+![dependency status][deps-count-image]
+![monthly downloads][npm-downloads-image]
 ![License][license]
 
 ## Install
@@ -49,13 +50,14 @@ map.get('foo'); // a `Set` of ['a', 'b']
 
 MIT License: Teppei Sato &lt;teppeis@gmail.com&gt;
 
-[npm-image]: https://img.shields.io/npm/v/@teppeis/multimaps.svg
+[npm-image]: https://badgen.net/npm/v/@teppeis/multimaps?icon=npm&label=
 [npm-url]: https://npmjs.org/package/@teppeis/multimaps
-[npm-downloads-image]: https://img.shields.io/npm/dm/@teppeis/multimaps.svg
-[deps-image]: https://img.shields.io/david/teppeis/multimaps.svg
+[npm-downloads-image]: https://badgen.net/npm/dm/@teppeis/multimaps
+[deps-image]: https://badgen.net/david/dep/teppeis/multimaps.svg
 [deps-url]: https://david-dm.org/teppeis/multimaps
-[node-version]: https://img.shields.io/badge/Node.js-v10+-brightgreen.svg
-[ts-version]: https://img.shields.io/badge/TypeScrpt-v3.8+-brightgreen.svg
+[deps-count-image]: https://badgen.net/bundlephobia/dependency-count/@teppeis/multimaps
+[node-version]: https://badgen.net/npm/node/next
+[ts-version]: https://badgen.net/badge/typescript/%3E=3.8?icon=typescript
 [license]: https://img.shields.io/npm/l/@teppeis/multimaps.svg
 [ci-image]: https://github.com/teppeis/multimaps/workflows/CI/badge.svg
 [ci-url]: https://github.com/teppeis/multimaps/actions?query=workflow%3ACI
