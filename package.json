@@ -17,7 +17,12 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",
-    "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
+    "lint": "run-p -l -c --aggregate-output lint:*",
+    "lint:eslint": "eslint .",
+    "lint:prettier": "prettier --check .",
+    "fix": "run-s fix:prettier fix:eslint",
+    "fix:eslint": "npm run lint:eslint -- --fix",
+    "fix:prettier": "npm run lint:prettier -- --write",
     "mocha": "mocha -r espower-typescript/guess --extension ts,tsx 'test/*.{ts,tsx}'",
     "prepublishOnly": "run-s clean build",
     "test": "run-s clean lint build mocha"
@@ -25,7 +30,6 @@
   "devDependencies": {
     "@types/mocha": "^8.2.0",
     "@types/node": "^10.17.51",
-    "eslint": "^7.19.0",
     "eslint-config-teppeis": "^13.0.0",
     "espower-typescript": "^10.0.0",
     "mocha": "^8.2.1",
