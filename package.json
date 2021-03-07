@@ -30,7 +30,7 @@
   "devDependencies": {
     "@types/mocha": "^8.2.1",
     "@types/node": "^10.17.55",
-    "eslint": "^7.20.0",
+    "eslint": "^7.21.0",
     "eslint-config-teppeis": "^13.1.5",
     "espower-typescript": "^10.0.0",
     "mocha": "^8.3.1",
