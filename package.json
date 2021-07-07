@@ -28,7 +28,7 @@
     "test": "run-s clean lint build mocha"
   },
   "devDependencies": {
-    "@types/mocha": "^8.2.2",
+    "@types/mocha": "^8.2.3",
     "@types/node": "^10.17.60",
     "eslint": "^7.29.0",
     "eslint-config-teppeis": "^13.1.6",
