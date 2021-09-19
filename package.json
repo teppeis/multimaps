@@ -7,7 +7,7 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=10.17"
+    "node": ">=12"
   },
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
