@@ -209,7 +209,7 @@ describe("ArrayMultimap", () => {
     map.put("foo", "a");
     const result: any[] = [];
     const ret = map.forEach(function (value, key, m) {
-      // tslint:disable-next-line:no-invalid-this
+      // eslint-disable-next-line @typescript-eslint/no-invalid-this
       assert(this === map);
       result.push([value, key, m]);
     });
@@ -224,12 +224,9 @@ describe("ArrayMultimap", () => {
     const map = new ArrayMultimap<string, string>();
     map.put("foo", "b");
     const obj = {};
-    let actual: any;
     map.forEach(function (value, key, m) {
-      // tslint:disable-next-line:no-invalid-this
-      actual = this;
+      assert(this === obj);
     }, obj);
-    assert(actual === obj);
   });
   it("asMap()", () => {
     const map = new ArrayMultimap<string, string>();
