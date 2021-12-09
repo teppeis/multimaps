@@ -96,6 +96,7 @@ export abstract class Multimap<K, V, I extends Iterable<V>> implements Iterable<
   }
 
   entries(): IterableIterator<[K, V]> {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     function* gen(): IterableIterator<[K, V]> {
       for (const [key, values] of self.map.entries()) {
@@ -108,6 +109,7 @@ export abstract class Multimap<K, V, I extends Iterable<V>> implements Iterable<
   }
 
   values(): IterableIterator<V> {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     function* gen(): IterableIterator<V> {
       for (const [, value] of self.entries()) {
