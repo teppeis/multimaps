@@ -1,16 +1,14 @@
-import { ArrayMultimap } from "../src";
+import { assert, describe, it } from "vitest";
+import { SetMultimap } from "../src";
 import { makeIterator } from "./lib/makeiterator";
 
-// eslint-disable-next-line import/order
-import assert = require("assert");
-
-describe("ArrayMultimap", () => {
+describe("SetMultimap", () => {
   describe("constructor", () => {
     it("is a function", () => {
-      assert(typeof ArrayMultimap === "function");
+      assert(typeof SetMultimap === "function");
     });
     it("is called with no args", () => {
-      const map = new ArrayMultimap<string, string>();
+      const map = new SetMultimap<string, string>();
       assert(map.size === 0);
     });
     it("is called with Iterable<[K, V]>", () => {
@@ -23,78 +21,88 @@ describe("ArrayMultimap", () => {
           ]);
         },
       };
-      const map = new ArrayMultimap<string, string>(iterable);
+      const map = new SetMultimap<string, string>(iterable);
       assert(map.size === 3);
-      assert.deepEqual(map.get("foo"), ["b", "a"]);
-      assert.deepEqual(map.get("bar"), ["c"]);
+      assert.deepEqual(map.get("foo"), new Set(["b", "a"]));
+      assert.deepEqual(map.get("bar"), new Set(["c"]));
     });
   });
-  it("@@toStringTag()", () => {
-    const map = new ArrayMultimap<string, string>();
-    assert(map.toString() === "[object ArrayMultimap]");
+  it("@@toStringTag", () => {
+    const map = new SetMultimap<string, string>();
+    assert(map.toString() === "[object SetMultimap]");
   });
   it("size: 0", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     assert(map.size === 0);
   });
-  it("get: empty array", () => {
-    const map = new ArrayMultimap<string, string>();
-    assert.deepEqual(map.get("foo"), []);
+  it("get: empty set", () => {
+    const map = new SetMultimap<string, string>();
+    assert.deepEqual(map.get("foo"), new Set());
   });
   it("put, get and size", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     assert(map.put("foo", "a") === true);
-    assert.deepEqual(map.get("foo"), ["a"]);
+    assert.deepEqual(map.get("foo"), new Set(["a"]));
     assert.equal(map.size, 1);
 
     assert(map.put("foo", "b") === true);
-    assert.deepEqual(map.get("foo"), ["a", "b"]);
+    assert.deepEqual(map.get("foo"), new Set(["a", "b"]));
     assert.equal(map.size, 2);
 
     assert(map.put("bar", "c") === true);
-    assert.deepEqual(map.get("bar"), ["c"]);
+    assert.deepEqual(map.get("bar"), new Set(["c"]));
     assert.equal(map.size, 3);
 
-    map.get("foo").push("d");
-    assert.deepEqual(map.get("foo"), ["a", "b"]);
+    map.get("foo").add("d");
+    assert.deepEqual(map.get("foo"), new Set(["a", "b"]));
+  });
+  it("put(), no duplicated value", () => {
+    const map = new SetMultimap<string, string>();
+    assert(map.put("foo", "a") === true);
+    assert.deepEqual(map.get("foo"), new Set(["a"]));
+    assert(map.size === 1);
+
+    assert(map.put("foo", "a") === false);
+    assert.deepEqual(map.get("foo"), new Set(["a"]));
+    assert(map.size === 1);
   });
   it("putAll(key, values)", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     map.put("foo", "a");
-    assert(map.putAll("foo", ["b", "c"]) === true);
-    assert.deepEqual(map.get("foo"), ["a", "b", "c"]);
+    assert(map.putAll("foo", new Set(["b", "c"])) === true);
+    assert.deepEqual(map.get("foo"), new Set(["a", "b", "c"]));
   });
   it("putAll() empty", () => {
-    const map = new ArrayMultimap<string, string>();
-    assert(map.putAll("foo", []) === false);
+    const map = new SetMultimap<string, string>();
+    assert(map.putAll("foo", new Set()) === false);
     assert(map.size === 0);
   });
   it("putAll(multimap)", () => {
-    const map = new ArrayMultimap<string, string>();
-    map.putAll("foo", ["a", "b"]);
-    map.putAll("bar", ["c"]);
-    const actual = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
+    map.putAll("foo", new Set(["a", "b"]));
+    map.putAll("bar", new Set(["c"]));
+    const actual = new SetMultimap<string, string>();
     actual.putAll(map);
-    assert.deepEqual(actual.get("foo"), ["a", "b"]);
-    assert.deepEqual(actual.get("bar"), ["c"]);
+    assert.deepEqual(actual.get("foo"), new Set(["a", "b"]));
+    assert.deepEqual(actual.get("bar"), new Set(["c"]));
     assert(actual.size === 3);
   });
   it("has()", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     assert(map.has("foo") === false);
     map.put("foo", "a");
     assert(map.has("foo") === true);
     assert(map.has("bar") === false);
   });
   it("hasEntry()", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     assert(map.hasEntry("foo", "a") === false);
     map.put("foo", "a");
     assert(map.hasEntry("foo", "a") === true);
     assert(map.hasEntry("foo", "b") === false);
   });
   it("clear()", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     assert(map.size === 0);
     map.put("foo", "a");
     map.clear();
@@ -102,7 +110,7 @@ describe("ArrayMultimap", () => {
     assert(map.has("foo") === false);
   });
   it("delete()", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     map.put("foo", "a");
     map.put("foo", "b");
     map.put("bar", "c");
@@ -115,28 +123,20 @@ describe("ArrayMultimap", () => {
     assert(map.size === 1);
   });
   it("deleteEntry()", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     map.put("foo", "a");
     map.put("foo", "b");
     map.put("bar", "b");
     assert(map.deleteEntry("foo", "b") === true);
     assert(map.size === 2);
-    assert.deepEqual(map.get("foo"), ["a"]);
-    assert.deepEqual(map.get("bar"), ["b"]);
+    assert.deepEqual(map.get("foo"), new Set(["a"]));
+    assert.deepEqual(map.get("bar"), new Set(["b"]));
 
     assert(map.deleteEntry("foo", "b") === false);
     assert(map.size === 2);
   });
-  it("deleteEntry() deletes only one value", () => {
-    const map = new ArrayMultimap<string, string>();
-    map.put("foo", "a");
-    map.put("foo", "a");
-    assert(map.deleteEntry("foo", "a") === true);
-    assert(map.size === 1);
-    assert.deepEqual(map.get("foo"), ["a"]);
-  });
   it("keys()", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     map.put("foo", "b");
     map.put("bar", "c");
     map.put("foo", "a");
@@ -147,7 +147,7 @@ describe("ArrayMultimap", () => {
     assert.deepEqual(iter.next(), { value: undefined, done: true });
   });
   it("entries() is an Iterator", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     map.put("foo", "b");
     map.put("bar", "c");
     map.put("foo", "a");
@@ -159,7 +159,7 @@ describe("ArrayMultimap", () => {
     assert.deepEqual(iter.next(), { value: undefined, done: true });
   });
   it("entries() is an Iterable", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     map.put("foo", "b");
     map.put("bar", "c");
     map.put("foo", "a");
@@ -171,7 +171,7 @@ describe("ArrayMultimap", () => {
     ]);
   });
   it("is an Iterable", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     map.put("foo", "b");
     map.put("bar", "c");
     map.put("foo", "a");
@@ -183,7 +183,7 @@ describe("ArrayMultimap", () => {
     ]);
   });
   it("values() is an Iterator", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     map.put("foo", "b");
     map.put("bar", "c");
     map.put("foo", "a");
@@ -195,7 +195,7 @@ describe("ArrayMultimap", () => {
     assert.deepEqual(iter.next(), { value: undefined, done: true });
   });
   it("values() is an Iterable", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     map.put("foo", "b");
     map.put("bar", "c");
     map.put("foo", "a");
@@ -203,7 +203,7 @@ describe("ArrayMultimap", () => {
     assert.deepEqual(actual, ["b", "a", "c"]);
   });
   it("forEach()", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     map.put("foo", "b");
     map.put("bar", "c");
     map.put("foo", "a");
@@ -221,7 +221,7 @@ describe("ArrayMultimap", () => {
     ]);
   });
   it("forEach(), thisArg", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     map.put("foo", "b");
     const obj = {};
     map.forEach(function (value, key, m) {
@@ -229,7 +229,7 @@ describe("ArrayMultimap", () => {
     }, obj);
   });
   it("asMap()", () => {
-    const map = new ArrayMultimap<string, string>();
+    const map = new SetMultimap<string, string>();
     map.put("foo", "b");
     map.put("bar", "c");
     map.put("foo", "a");
@@ -238,13 +238,13 @@ describe("ArrayMultimap", () => {
     assert.deepEqual(
       actual,
       new Map([
-        ["foo", ["b", "a"]],
-        ["bar", ["c"]],
+        ["foo", new Set(["b", "a"])],
+        ["bar", new Set(["c"])],
       ])
     );
     const foo = actual.get("foo");
     if (!foo) throw new Error();
-    foo.push("d");
-    assert.deepEqual(map.get("foo"), ["b", "a"]);
+    foo.add("d");
+    assert.deepEqual(map.get("foo"), new Set(["b", "a"]));
   });
 });
