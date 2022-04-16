@@ -1,0 +1,10 @@
+{
+  "name": "test-pkg",
+  "private": true,
+  "scripts": {
+    "test": "node index.mjs && node index.cjs"
+  },
+  "dependencies": {
+    "@teppeis/multimaps": "file:.."
+  }
+}
