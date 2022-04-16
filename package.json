@@ -10,14 +10,24 @@
     "node": ">=14"
   },
   "type": "module",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "./dist/cjs/src/index.js",
+  "types": "./dist/cjs/src/index.d.ts",
+  "module": "./dist/esm/src/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/src/index.js",
+      "require": "./dist/cjs/src/index.js",
+      "default": "./dist/cjs/src/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
-    "dist/src"
+    "dist/cjs/src",
+    "dist/esm/src"
   ],
   "scripts": {
     "build": "tsc",
-    "clean": "rimraf dist",
+    "clean": "rimraf 'dist/*/!(package.json)'",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check .",
     "fix": "run-s fix:prettier fix:eslint",
