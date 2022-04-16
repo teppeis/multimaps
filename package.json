@@ -26,8 +26,10 @@
     "dist/esm/src"
   ],
   "scripts": {
-    "build": "tsc",
-    "clean": "rimraf 'dist/*/!(package.json)'",
+    "build": "run-p build:*",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "tsc",
+    "clean": "rimraf 'dist/!(cjs)' 'dist/cjs/!(package.json)'",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check .",
     "fix": "run-s fix:prettier fix:eslint",
