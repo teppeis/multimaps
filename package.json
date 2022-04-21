@@ -10,24 +10,24 @@
     "node": ">=14"
   },
   "type": "module",
-  "main": "./dist/cjs/src/index.js",
-  "types": "./dist/cjs/src/index.d.ts",
-  "module": "./dist/esm/src/index.js",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "module": "./dist/esm/index.js",
   "exports": {
     ".": {
-      "import": "./dist/esm/src/index.js",
-      "require": "./dist/cjs/src/index.js",
-      "default": "./dist/cjs/src/index.js"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/cjs/index.js"
     },
     "./package.json": "./package.json"
   },
   "files": [
-    "dist/cjs/src",
-    "dist/esm/src"
+    "dist/cjs",
+    "dist/esm"
   ],
   "scripts": {
     "build": "run-p build:*",
-    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc",
     "clean": "rimraf 'dist/!(cjs)' 'dist/cjs/!(package.json)'",
     "lint:eslint": "eslint .",
@@ -38,7 +38,7 @@
     "prepublishOnly": "run-s clean build",
     "test": "run-p -c --aggregate-output lint:* type unit test-pkg",
     "test-pkg": "npm run build && cd test-pkg && npm i && npm t",
-    "type": "tsc --noEmit",
+    "type": "tsc -p tsconfig.test.json",
     "unit": "vitest run --coverage"
   },
   "devDependencies": {
