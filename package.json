@@ -22,8 +22,7 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist/cjs",
-    "dist/esm"
+    "dist"
   ],
   "scripts": {
     "build": "run-p build:*",
