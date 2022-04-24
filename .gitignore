@@ -2,4 +2,3 @@
 node_modules
 /coverage
 /dist
-!/dist/cjs/package.json

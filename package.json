@@ -25,9 +25,9 @@
   ],
   "scripts": {
     "build": "run-p build:*",
-    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json && ./gen-cjs-packagejson.sh",
     "build:esm": "tsc",
-    "clean": "rimraf 'dist/!(cjs)' 'dist/cjs/!(package.json)'",
+    "clean": "rimraf dist",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check .",
     "fix": "run-s fix:prettier fix:eslint",
