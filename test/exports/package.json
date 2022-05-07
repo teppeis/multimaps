@@ -1,10 +1,10 @@
 {
-  "name": "test-pkg",
+  "name": "exports",
   "private": true,
   "scripts": {
     "test": "node index.mjs && node index.cjs"
   },
   "dependencies": {
-    "@teppeis/multimaps": "file:.."
+    "@teppeis/multimaps": "file:../.."
   }
 }
