@@ -1,2 +1,2 @@
-export { ArrayMultimap } from "./arraymultimap";
-export { SetMultimap } from "./setmultimap";
+export { ArrayMultimap } from "./arraymultimap.js";
+export { SetMultimap } from "./setmultimap.js";

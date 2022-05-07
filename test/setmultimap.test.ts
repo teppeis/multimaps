@@ -1,6 +1,6 @@
 import { assert, describe, it } from "vitest";
-import { SetMultimap } from "../src";
-import { makeIterator } from "./lib/makeiterator";
+import { SetMultimap } from "../src/index.js";
+import { makeIterator } from "./lib/makeiterator.js";
 
 describe("SetMultimap", () => {
   describe("constructor", () => {
