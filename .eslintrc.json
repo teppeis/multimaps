@@ -1,4 +1,10 @@
 {
   "root": true,
-  "extends": ["teppeis/node-v14", "teppeis/+typescript", "teppeis/+prettier", "teppeis/+mocha"]
+  "extends": ["teppeis/node-v14", "teppeis/+typescript", "teppeis/+prettier", "teppeis/+mocha"],
+  "overrides": [
+    {
+      "files": ["*.mjs"],
+      "extends": "teppeis/+module"
+    }
+  ]
 }
