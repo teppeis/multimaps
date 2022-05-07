@@ -36,6 +36,7 @@
     "prepublishOnly": "run-s clean build",
     "test": "run-p -c --aggregate-output lint:* type unit test-pkg",
     "test-pkg": "npm run build && cd test-pkg && npm i && npm t",
+    "test-ts40": "cd test/ts40 && npm i && npm t",
     "type": "tsc -p tsconfig.test.json",
     "unit": "vitest run --coverage"
   },

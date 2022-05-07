@@ -1,0 +1,13 @@
+{
+  "name": "ts40",
+  "private": true,
+  "scripts": {
+    "test": "tsc && node dist/index.js"
+  },
+  "dependencies": {
+    "@teppeis/multimaps": "file:../.."
+  },
+  "devDependencies": {
+    "typescript": "~4.0.8"
+  }
+}
