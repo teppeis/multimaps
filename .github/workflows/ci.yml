@@ -20,7 +20,6 @@ jobs:
       - name: npm install
         run: |
           npm install
-          npm run build
           cd test/ts40
           npm install
           cd ../..
