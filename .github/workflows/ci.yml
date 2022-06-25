@@ -16,87 +16,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install -g npm@8.12
+      - name: Install npm@latest
+        run: |
+          npm install -g npm@latest
+          npm -v
       - name: npm install
         run: |
           npm install
-          cd test/ts40
-          npm install
-          cd ../..
-          cd test/exports
-          npm install
+          npm run test:install
       - run: npm run build
       - run: npm test
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
-      - run: npm run test:nest
