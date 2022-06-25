@@ -36,8 +36,8 @@
     "prepublishOnly": "run-s clean build",
     "test": "run-p -c --aggregate-output lint:* type unit test:nest",
     "test:nest": "run-p -c --aggregate-output test-exports test-ts40",
-    "test-exports": "cd test/exports && npm i && npm t",
-    "test-ts40": "cd test/ts40 && npm i && npm t",
+    "test-exports": "cd test/exports && npm t",
+    "test-ts40": "cd test/ts40 && npm t",
     "type": "tsc -p tsconfig.test.json",
     "unit": "vitest run --coverage"
   },
