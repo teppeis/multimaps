@@ -34,7 +34,7 @@
     "fix:eslint": "npm run lint:eslint -- --fix",
     "fix:prettier": "npm run lint:prettier -- --write",
     "prepublishOnly": "run-s clean build",
-    "test": "run-p -c --aggregate-output lint:* type unit test:nest",
+    "test": "run-p -cl --aggregate-output lint:* type unit test:nest",
     "test:nest": "run-s test-exports test-ts40",
     "test-exports": "cd test/exports && npm i && npm t",
     "test-ts40": "cd test/ts40 && npm i && npm t",
