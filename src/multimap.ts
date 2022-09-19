@@ -1,4 +1,6 @@
-export abstract class Multimap<K, V, I extends Iterable<V>> implements Iterable<[K, V]> {
+export abstract class Multimap<K, V, I extends Iterable<V>>
+  implements Iterable<[K, V]>
+{
   private size_ = 0;
   private map: Map<K, I> = new Map();
   private operator: CollectionOperator<V, I>;
@@ -119,7 +121,10 @@ export abstract class Multimap<K, V, I extends Iterable<V>> implements Iterable<
     return gen();
   }
 
-  forEach<T>(callback: (this: T | this, alue: V, key: K, map: this) => void, thisArg?: T): void {
+  forEach<T>(
+    callback: (this: T | this, alue: V, key: K, map: this) => void,
+    thisArg?: T
+  ): void {
     for (const [key, value] of this.entries()) {
       callback.call(thisArg === undefined ? this : thisArg, value, key, this);
     }

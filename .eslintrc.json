@@ -1,4 +1,9 @@
 {
   "root": true,
-  "extends": ["teppeis/node-v14", "teppeis/+typescript", "teppeis/+module", "teppeis/+prettier"]
+  "extends": [
+    "teppeis/node-v14",
+    "teppeis/+typescript",
+    "teppeis/+module",
+    "teppeis/+prettier"
+  ]
 }
