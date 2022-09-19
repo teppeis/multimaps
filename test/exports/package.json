@@ -2,7 +2,9 @@
   "name": "exports",
   "private": true,
   "scripts": {
-    "test": "node index.mjs && node index.cjs"
+    "test": "run-p test:*",
+    "test:cjs": "node it-should-be-required-as-cjs.cjs",
+    "test:esm": "node it-should-be-imported-as-esm.mjs"
   },
   "dependencies": {
     "@teppeis/multimaps": "file:../.."
