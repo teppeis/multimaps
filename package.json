@@ -7,7 +7,7 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "type": "module",
   "main": "./dist/cjs/index.js",
@@ -28,7 +28,7 @@
     "build": "run-p build:*",
     "build:cjs": "tsc -p tsconfig.cjs.json && ./gen-cjs-packagejson.sh",
     "build:esm": "tsc",
-    "clean": "rimraf dist test/ts40/dist",
+    "clean": "rimraf dist test/ts-oldest/dist",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check .",
     "fix": "run-s fix:prettier fix:eslint",
@@ -36,16 +36,16 @@
     "fix:prettier": "npm run lint:prettier -- --write",
     "prepublishOnly": "run-s clean build",
     "test": "run-p -cl --aggregate-output lint:* type unit test:nest",
-    "test:install": "cd test/exports && npm i && cd ../ts40 && npm i",
-    "test:nest": "run-s test-exports test-ts40",
+    "test:install": "cd test/exports && npm i && cd ../ts-oldest && npm i",
+    "test:nest": "run-s test-exports test-ts-oldest",
     "test-exports": "cd test/exports && npm t",
-    "test-ts40": "cd test/ts40 && npm t",
+    "test-ts-oldest": "cd test/ts-oldest && npm t",
     "type": "tsc -p tsconfig.test.json",
     "unit": "vitest run --coverage"
   },
   "devDependencies": {
-    "@tsconfig/node14": "^1.0.3",
-    "@types/node": "^14.18.43",
+    "@tsconfig/node16": "^1.0.3",
+    "@types/node": "^16.18.25",
     "@vitest/coverage-c8": "^0.29.8",
     "c8": "^7.13.0",
     "eslint": "^8.36.0",

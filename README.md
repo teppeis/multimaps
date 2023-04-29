@@ -57,7 +57,7 @@ MIT License: Teppei Sato &lt;teppeis@gmail.com&gt;
 [deps-url]: https://david-dm.org/teppeis/multimaps
 [deps-count-image]: https://badgen.net/bundlephobia/dependency-count/@teppeis/multimaps
 [node-version]: https://badgen.net/npm/node/@teppeis/multimaps
-[ts-version]: https://badgen.net/badge/typescript/%3E=4.0?icon=typescript
+[ts-version]: https://badgen.net/badge/typescript/%3E=4.3?icon=typescript
 [license]: https://img.shields.io/npm/l/@teppeis/multimaps.svg
 [ci-image]: https://github.com/teppeis/multimaps/workflows/CI/badge.svg
 [ci-url]: https://github.com/teppeis/multimaps/actions?query=workflow%3ACI

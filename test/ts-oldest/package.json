@@ -1,5 +1,5 @@
 {
-  "name": "ts40",
+  "name": "ts-oldest",
   "private": true,
   "scripts": {
     "test": "tsc && node dist/index.js"
@@ -8,6 +8,6 @@
     "@teppeis/multimaps": "file:../.."
   },
   "devDependencies": {
-    "typescript": "~4.0.8"
+    "typescript": "4.3"
   }
 }
