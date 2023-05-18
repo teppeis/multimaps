@@ -44,7 +44,6 @@
     "unit": "vitest run --coverage"
   },
   "devDependencies": {
-    "@tsconfig/node16": "^1.0.3",
     "@types/node": "^16.18.31",
     "@vitest/coverage-c8": "^0.30.1",
     "c8": "^7.13.0",
