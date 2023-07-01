@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.18.37",
-    "@vitest/coverage-c8": "^0.31.4",
+    "@vitest/coverage-c8": "^0.32.2",
     "c8": "^8.0.0",
     "eslint": "^8.43.0",
     "eslint-config-teppeis": "^17.0.2",
@@ -54,7 +54,7 @@
     "prettier": "^2.8.8",
     "rimraf": "^5.0.1",
     "typescript": "^5.1.6",
-    "vitest": "^0.31.4"
+    "vitest": "^0.32.2"
   },
   "homepage": "https://github.com/teppeis/multimaps#readme",
   "repository": {
