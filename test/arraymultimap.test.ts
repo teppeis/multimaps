@@ -238,7 +238,7 @@ describe("ArrayMultimap", () => {
       new Map([
         ["foo", ["b", "a"]],
         ["bar", ["c"]],
-      ])
+      ]),
     );
     const foo = actual.get("foo");
     if (!foo) throw new Error();

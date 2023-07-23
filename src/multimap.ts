@@ -123,7 +123,7 @@ export abstract class Multimap<K, V, I extends Iterable<V>>
 
   forEach<T>(
     callback: (this: T | this, alue: V, key: K, map: this) => void,
-    thisArg?: T
+    thisArg?: T,
   ): void {
     for (const [key, value] of this.entries()) {
       callback.call(thisArg === undefined ? this : thisArg, value, key, this);

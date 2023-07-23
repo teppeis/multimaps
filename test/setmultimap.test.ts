@@ -240,7 +240,7 @@ describe("SetMultimap", () => {
       new Map([
         ["foo", new Set(["b", "a"])],
         ["bar", new Set(["c"])],
-      ])
+      ]),
     );
     const foo = actual.get("foo");
     if (!foo) throw new Error();
