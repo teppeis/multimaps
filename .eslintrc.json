@@ -1,7 +1,7 @@
 {
   "root": true,
   "extends": [
-    "teppeis/node-v16",
+    "teppeis/node-v18",
     "teppeis/+typescript",
     "teppeis/+module",
     "teppeis/+prettier"
