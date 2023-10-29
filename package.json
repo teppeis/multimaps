@@ -7,7 +7,7 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "type": "module",
   "main": "./dist/cjs/index.js",
@@ -44,7 +44,7 @@
     "unit": "vitest run --coverage"
   },
   "devDependencies": {
-    "@types/node": "^16.18.59",
+    "@types/node": "^18.18.7",
     "@vitest/coverage-v8": "^0.34.6",
     "eslint": "^8.52.0",
     "eslint-config-teppeis": "^17.0.4",
