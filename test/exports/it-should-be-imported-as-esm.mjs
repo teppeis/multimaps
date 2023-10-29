@@ -1,5 +1,5 @@
 import { ArrayMultimap } from "@teppeis/multimaps";
-import { strict as assert } from "assert";
+import assert from "node:assert/strict";
 
 const map = new ArrayMultimap();
 assert.equal(map.size, 0);
