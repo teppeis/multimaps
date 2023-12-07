@@ -44,7 +44,7 @@
     "unit": "vitest run --coverage"
   },
   "devDependencies": {
-    "@types/node": "^18.19.2",
+    "@types/node": "^18.19.3",
     "@vitest/coverage-v8": "^1.0.1",
     "eslint": "^8.55.0",
     "eslint-config-teppeis": "^19.0.1",
